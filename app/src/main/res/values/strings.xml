@@ -1,3 +1,44 @@
 <resources>
-    <string name="app_name">Only weather</string>
+    <string name="app_name">Only weather app</string>
+    <string name="today">Today</string>
+    <string name="feature_weather">Feature weather</string>
+    <string name="list">List</string>
+    <string name="loading">Loading</string>
+    <string name="tempFormat">%1$s°C - %2$s°C</string>
+    <string name="celsiusSign">°C</string>
+    <string name="minTemp">Min temp: </string>
+    <string name="maxTemp">Max temp: </string>
+    <string name="wind">Wind: %1$s m/s</string>
+    <string name="current_weather">Current weather</string>
+    <string name="future_weather">Future weather (7 days)</string>
+    <string name="list_weather">Forecast weather</string>
+
+
+    // диалоги
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="ttl_new_city">New city</string>
+
+    <string name="btn_get_future">Forecast for \n several days</string>
+
+    <string name="toast_refresh_page">Data is out of date, please refresh the page</string>
+    <string name="toast_forecast_outdated">The weather forecast is very outdated</string>
+    <string name="toast_error_internet_access">No internet connection found!</string>
+    <string name="toast_add_new_city">Added new city</string>
+    <string name="toast_error_add_new_city">Error when adding a city!</string>
+    <string name="toast_error">Error</string>
+    <string name="toast_error_empty_field">Input error - empty field</string>
+    <string name="new_city">New city</string>
+    <string name="enter_the_name_of_the_city">Enter the name of the city</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="city_name">City Name</string>
+    <string name="date">date</string>
+    <string name="_01_01_2020">01.01.2020</string>
+    <string name="description">description</string>
+    <string name="overview">Overview</string>
+    <string name="moscow">Moscow</string>
+    <string name="rain">Patchy rain possible</string>
+
+
 </resources>
