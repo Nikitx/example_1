@@ -12,12 +12,12 @@ import com.buzin.onlyweather.data.database.current_db.CurrentWeatherModel
 import com.buzin.onlyweather.data.network.WEATHER_ICON_URL
 import com.buzin.onlyweather.extensions.*
 import com.buzin.onlyweather.util.Constants.Companion.DATA_CITY_ID_ARGS
-import com.buzin.onlyweather.util.WeatherUtil
-import com.buzin.onlyweather.weather.model.DetailedWeatherViewModel
+import com.buzin.onlyweather.util.MyUtil
+import com.buzin.onlyweather.weather.model.DetailedViewModel
 import com.buzin.onlyweather.weather.ui.future_weather.FutureWeatherFragment
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.current_weather_fragment.*
-import kotlinx.android.synthetic.main.future_weather_fragment.loadingGroup
+import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_future_weather.loadingGroup
 import javax.inject.Inject
 
 
@@ -26,7 +26,7 @@ class DetailedWeatherFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: DetailedWeatherViewModel
+    private lateinit var viewModel: DetailedViewModel
     private var cityId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class DetailedWeatherFragment : DaggerFragment() {
     ): View? {
 
         viewModel = viewModelProvider(viewModelFactory)
-        return inflater.inflate(R.layout.current_weather_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,13 +57,11 @@ class DetailedWeatherFragment : DaggerFragment() {
             when {
                 viewObject.error -> {
                     if (viewObject.throwable != null) {
-                        viewObject.throwable.message?.let { WeatherUtil.showToast(requireContext(),it) }
+                        viewObject.throwable.message?.let { MyUtil.showToast(requireContext(),it) }
                     } else {
-                        WeatherUtil.showToast(requireContext(),getString(R.string.toast_error))
+                        MyUtil.showToast(requireContext(),getString(R.string.toast_error))
                     }
                 }
-               // viewObject.data == null -> return@Observer
-                //else -> showCurrentWeather(viewObject.data)
             }
         })
 
@@ -82,9 +80,8 @@ class DetailedWeatherFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // Подписались на БД получаем данные после обновлений
         viewModel.detailWeather.observe(viewLifecycleOwner, Observer { city ->
-            city.let { showCurrentWeather(it) }
+            showCurrentWeather(city)
         })
     }
 

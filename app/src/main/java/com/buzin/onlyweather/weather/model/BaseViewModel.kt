@@ -8,17 +8,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 data class ViewObject<T>(
-    //val data: T?,
     var progress: Boolean,
     val error: Boolean,
     val throwable: Throwable?
 )
 
-abstract class BaseWeatherViewModel<T> : ViewModel() {
+abstract class BaseViewModel<T> : ViewModel() {
 
      val mutableLiveData = MutableLiveData<ViewObject<T>>().apply {
         value = ViewObject(
-            //data = null,
             progress = false,
             error = false,
             throwable = null
@@ -28,7 +26,6 @@ abstract class BaseWeatherViewModel<T> : ViewModel() {
     private val observer: Observer<in T> = Observer {
         mutableLiveData.postValue(
             currentData?.copy(
-                //data = it,
                 progress = false,
                 error = false,
                 throwable = null
@@ -58,7 +55,6 @@ abstract class BaseWeatherViewModel<T> : ViewModel() {
         } else {
             mutableLiveData.postValue(
                 currentData?.copy(
-                    //data = null,
                     progress = false,
                     error = true,
                     throwable = Throwable(message = "No data found")

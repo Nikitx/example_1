@@ -1,10 +1,10 @@
 package com.buzin.onlyweather.di.modules
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.buzin.onlyweather.data.network.API_KEY
 import com.buzin.onlyweather.data.network.ApiWeatherInterface
 import com.buzin.onlyweather.data.network.UNITS
 import com.buzin.onlyweather.data.network.BASE_URL
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -49,7 +49,7 @@ class NetworkModule {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okClient)
             .build()
         return retrofit.create(ApiWeatherInterface::class.java)

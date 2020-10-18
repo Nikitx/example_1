@@ -3,7 +3,7 @@ package com.buzin.onlyweather.di.modules
 import androidx.lifecycle.ViewModel
 import com.buzin.onlyweather.di.utils.ViewModelKey
 import com.buzin.onlyweather.di.scopes.FragmentScope
-import com.buzin.onlyweather.weather.model.ListWeatherViewModel
+import com.buzin.onlyweather.weather.model.ListViewModel
 import com.buzin.onlyweather.weather.ui.list_weather.ListWeatherFragment
 import dagger.Binds
 import dagger.Module
@@ -23,6 +23,6 @@ internal abstract class ListWeatherModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ListWeatherViewModel::class)
-    abstract fun bindListWeatherViewModel(viewModel: ListWeatherViewModel): ViewModel
+    @ViewModelKey(ListViewModel::class)
+    abstract fun bindListWeatherViewModel(viewModel: ListViewModel): ViewModel
 }

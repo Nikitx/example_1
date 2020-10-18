@@ -21,16 +21,12 @@ data class CurrentWeatherModel(
     val windSpeed: Double,
     @PrimaryKey(autoGenerate = false)
     val cityId: Int
-//    val updated: Long
 ) {
-//    @PrimaryKey(autoGenerate = true)
-//    var id: Int //= CURRENT_WEATHER_ID
 }
 
 fun CurrentWeather.fromApiDataToModelWeather(): CurrentWeatherModel {
     return CurrentWeatherModel(
         this.base,
-//        this.dt,
         System.currentTimeMillis(),
         this.main.temp,
         this.main.tempMax,

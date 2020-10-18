@@ -11,10 +11,10 @@ import com.buzin.onlyweather.R
 import com.buzin.onlyweather.extensions.setupTitle
 import com.buzin.onlyweather.extensions.viewModelProvider
 import com.buzin.onlyweather.util.Constants.Companion.DATA_CITY_ID_ARGS
-import com.buzin.onlyweather.util.WeatherUtil
-import com.buzin.onlyweather.weather.model.FutureWeatherViewModel
+import com.buzin.onlyweather.util.MyUtil
+import com.buzin.onlyweather.weather.model.FutureViewModel
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.future_weather_fragment.*
+import kotlinx.android.synthetic.main.fragment_future_weather.*
 import javax.inject.Inject
 
 class FutureWeatherFragment : DaggerFragment() {
@@ -22,7 +22,7 @@ class FutureWeatherFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: FutureWeatherViewModel
+    private lateinit var viewModel: FutureViewModel
     private lateinit var mAdapter: FutureWeatherAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class FutureWeatherFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.future_weather_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_future_weather, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +57,6 @@ class FutureWeatherFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // Подписались на БД получаем данные после обновлений БД
         viewModel.allDaysForecast.observe(viewLifecycleOwner, Observer { result ->
             result.let { mAdapter.updateWeather(it) }
         })
@@ -68,13 +67,13 @@ class FutureWeatherFragment : DaggerFragment() {
                 viewObject.error -> {
                     if (viewObject.throwable != null) {
                         viewObject.throwable.message?.let {
-                            WeatherUtil.showToast(
+                            MyUtil.showToast(
                                 requireContext(),
                                 it
                             )
                         }
                     } else {
-                        WeatherUtil.showToast(requireContext(), getString(R.string.toast_error))
+                        MyUtil.showToast(requireContext(), getString(R.string.toast_error))
                     }
                 }
             }

@@ -15,8 +15,8 @@ import androidx.lifecycle.Observer
 import com.buzin.onlyweather.extensions.replaceFragment
 import com.buzin.onlyweather.extensions.setupTitle
 import com.buzin.onlyweather.extensions.viewModelProvider
-import com.buzin.onlyweather.util.WeatherUtil
-import com.buzin.onlyweather.weather.model.ListWeatherViewModel
+import com.buzin.onlyweather.util.MyUtil
+import com.buzin.onlyweather.weather.model.ListViewModel
 import com.buzin.onlyweather.weather.ui.detail_weather.DetailedWeatherFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_list.swipeToRefresh
@@ -27,12 +27,11 @@ import javax.inject.Inject
 class ListWeatherFragment : DaggerFragment() {
     private val tickReceiver by lazy { makeBroadcastReceiver() }
     private var lastUpdate: Long? = null
-    //private lateinit var mSettings: MySettings
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewModel: ListWeatherViewModel
+    private lateinit var viewModel: ListViewModel
     private lateinit var listWeatherAdapter: ListWeatherAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +58,7 @@ class ListWeatherFragment : DaggerFragment() {
 
         // Более 24 часов не было обновления
         viewModel.needToastAboutRefresh.observe(viewLifecycleOwner, Observer {
-            if (it) WeatherUtil.showToast(
+            if (it) MyUtil.showToast(
                 requireContext(),
                 getString(R.string.toast_forecast_outdated)
             )
@@ -86,13 +85,11 @@ class ListWeatherFragment : DaggerFragment() {
             when {
                 viewObject.error -> {
                     if (viewObject.throwable != null) {
-                        viewObject.throwable.message?.let { WeatherUtil.showToast(requireContext(),it) }
+                        viewObject.throwable.message?.let { MyUtil.showToast(requireContext(), it) }
                     } else {
-                        WeatherUtil.showToast(requireContext(),getString(R.string.toast_error))
+                        MyUtil.showToast(requireContext(), getString(R.string.toast_error))
                     }
                 }
-                //viewObject.data == null -> return@Observer
-                //else -> showCurrentWeather(viewObject.data as ArrayList<CurrentWeatherModel>?)
             }
         })
 
@@ -110,7 +107,7 @@ class ListWeatherFragment : DaggerFragment() {
         try {
             requireActivity().unregisterReceiver(tickReceiver)
         } catch (e: IllegalArgumentException) {
-            WeatherUtil.toLog(e)
+            MyUtil.toLog(e)
         }
         super.onPause()
     }
@@ -141,22 +138,21 @@ class ListWeatherFragment : DaggerFragment() {
         }
     }
 
-
     /** С помощью этой штуки будем понимать устарели ли данные 5минут*/
     private fun makeBroadcastReceiver(): BroadcastReceiver {
         return object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent?) {
                 if (intent?.action == Intent.ACTION_TIME_TICK) {
-                    WeatherUtil.toLog("Tick-tak")
+                    MyUtil.toLog("Tick-tak")
                     if (lastUpdate != null) {
                         val now = System.currentTimeMillis()
                         val diffInMin = (now - lastUpdate!!) / 1000 / 60
                         if (diffInMin.toInt() == 5) {
-                            WeatherUtil.showToast(
+                            MyUtil.showToast(
                                 requireContext(),
                                 getString(R.string.toast_refresh_page)
                             )
-                            WeatherUtil.toLog("Tick-tak diffInMin.toInt() == 5")
+                            MyUtil.toLog("Tick-tak diffInMin.toInt() == 5")
                         }
 
                     }

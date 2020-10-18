@@ -7,7 +7,7 @@ package="com.buzin.onlyweather">
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 <application
-    android:name="com.buzin.onlyweather.WeatherApplication"
+    android:name="com.buzin.onlyweather.MyApplication"
     android:allowBackup="true"
     android:fullBackupContent ="true"
     android:icon="@mipmap/ic_launcher"

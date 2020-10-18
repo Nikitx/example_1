@@ -13,7 +13,7 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector(
         modules = [
             // fragments
-            CurrentWeatherModule::class,
+            DetailWeatherModule::class,
             FutureWeatherModule::class,
             ListWeatherModule::class,
             AddCityDialogModule::class

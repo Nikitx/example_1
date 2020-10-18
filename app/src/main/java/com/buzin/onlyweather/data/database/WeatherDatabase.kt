@@ -11,7 +11,10 @@ import com.buzin.onlyweather.data.database.future_db.FutureWeatherModel
 
 
 @Database(
-    entities = [CurrentWeatherModel::class, FutureWeatherModel::class],
+    entities = [
+        CurrentWeatherModel::class,
+        FutureWeatherModel::class
+    ],
     version = 3, exportSchema = false
 )
 abstract class WeatherDatabase : RoomDatabase() {

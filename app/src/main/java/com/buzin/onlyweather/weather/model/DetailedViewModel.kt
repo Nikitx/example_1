@@ -8,9 +8,9 @@ import com.buzin.onlyweather.data.repository.WeatherRepositoryProvider
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DetailedWeatherViewModel @Inject constructor(
+class DetailedViewModel @Inject constructor(
     private val repository: WeatherRepositoryProvider,
-) : BaseWeatherViewModel<CurrentWeatherModel>() {
+) : BaseViewModel<CurrentWeatherModel>() {
 
     private var cityId: Int? = 0
     lateinit var detailWeather: LiveData<CurrentWeatherModel>

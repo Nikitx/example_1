@@ -7,23 +7,17 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.buzin.onlyweather.R
 import com.buzin.onlyweather.extensions.viewModelProvider
-import com.buzin.onlyweather.util.WeatherUtil
+import com.buzin.onlyweather.util.MyUtil
 import com.buzin.onlyweather.weather.ui.MainActivity
 import dagger.android.support.DaggerDialogFragment
 import kotlinx.coroutines.CoroutineScope
@@ -69,27 +63,6 @@ class AddCityDialog : DaggerDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(viewModelFactory)
-//        viewModel = ViewModelProvider(this).get(AddCityDialogViewModel::class.java)
-//        viewModel = ViewModelProvider(this, LTViewModelFactory(application, intent)).get(AddCityDialogViewModel::class.java)
-
-//        viewModel.isNeedSuccessToast.observe(this, Observer {
-//            if (it) {
-//                WeatherUtil.showToast(requireContext(), getString(R.string.toast_add_new_city))
-//                viewModel.needSuccessToast()
-//                WeatherUtil.toLog("dialog s")
-//            }
-//        })
-
-//        viewModel.isNeedErrorToast.observe(this, Observer {
-//            if (it) {
-//                WeatherUtil.showToast(
-//                    requireContext(),
-//                    getString(R.string.toast_error_add_new_city)
-//                )
-//                viewModel.needErrorToast()
-//                WeatherUtil.toLog("dialog e")
-//            }
-//        })
     }
 
 
@@ -104,7 +77,7 @@ class AddCityDialog : DaggerDialogFragment() {
         btnOk?.text = getString(R.string.btn_ok)
         btnCancel?.text = getString(R.string.btn_cancel)
         tvTitle = v.findViewById(R.id.title)
-        tvTitle?.setText(getString(R.string.ttl_new_city))
+        tvTitle?.text = getString(R.string.ttl_new_city)
 
         editTextCityName = v.findViewById(R.id.editTextCityName)
         editTextCityName!!.requestFocus()
@@ -113,7 +86,7 @@ class AddCityDialog : DaggerDialogFragment() {
         btnOk?.setOnClickListener {
             val cityName = editTextCityName!!.text.toString().trim { it <= ' ' }
             if (cityName.isEmpty()) {
-                WeatherUtil.showToast(requireContext(), getString(R.string.toast_error_empty_field))
+                MyUtil.showToast(requireContext(), getString(R.string.toast_error_empty_field))
             } else {
                 CoroutineScope(IO).launch {
                     viewModel.addNewCityByName(cityName)
@@ -126,7 +99,6 @@ class AddCityDialog : DaggerDialogFragment() {
             mListener?.onDialogNegativeClick(this@AddCityDialog)
             dialog?.dismiss()
         }
-
 
         val ad = AlertDialog.Builder(requireActivity())
         ad.setView(v)
@@ -159,28 +131,6 @@ class AddCityDialog : DaggerDialogFragment() {
             d.arguments = b
             return d
         }
-
-
-//        fun newInstance(fragment: Fragment, task: LTask, needSound: Boolean): AddCityDialog {
-//            val b = Bundle(3)
-//            b.putInt(EXTRA_TASK_STATUS, task.status)
-//            b.putBoolean(EXTRA_TASK_SERIAL, task.seriesType != SeriesType.NONE.ordinal)
-//            b.putBoolean(EXTRA_NEED_SOUND, needSound)
-//            run {
-//                val userName = LTSettings.getInstance().userName
-//                val isCustomer = userName == task.emailCustomer
-//                val isPerformer = userName == task.emailPerformer
-//
-//                b.putInt(EXTRA_USER_ROLE, UserTaskRole.whoIsWho(isCustomer, isPerformer).ordinal)
-//            }
-//
-//            val d = TaskStatusDialog()
-//            d.setTargetFragment(fragment, CODE)
-//            d.arguments = b
-//
-//            return d
-//        }
-
     }
 
     //https://developer.android.com/guide/topics/ui/dialogs?hl=ru

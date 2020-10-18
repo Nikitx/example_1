@@ -1,13 +1,13 @@
 package com.buzin.onlyweather.util
 
 import android.content.SharedPreferences
-import com.buzin.onlyweather.WeatherApplication
+import com.buzin.onlyweather.MyApplication
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MySettings @Inject constructor(
-    private var weatherApplication: WeatherApplication
+    private var myApplication: MyApplication
 ) {
 
 
@@ -22,12 +22,10 @@ class MySettings @Inject constructor(
     private var mEditor: SharedPreferences.Editor
 
     init {
-        mPref = weatherApplication.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+        mPref = myApplication.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         mEditor = mPref.edit()
 
     }
-
-
 
     fun setNeedToAddDemoCities(needDemo: Boolean) {
         mEditor.putBoolean(NEED_TO_ADD_DEMO, needDemo)

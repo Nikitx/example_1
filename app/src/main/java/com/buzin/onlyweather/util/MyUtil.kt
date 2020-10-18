@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-class WeatherUtil {
+class MyUtil {
 
     companion object {
 

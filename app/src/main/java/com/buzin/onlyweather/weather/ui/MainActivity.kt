@@ -5,7 +5,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.buzin.onlyweather.R
 import com.buzin.onlyweather.extensions.replaceFragmentInActivity
 import com.buzin.onlyweather.util.Constants.Companion.TAG_ADD_CITY_DIALOG
-import com.buzin.onlyweather.util.WeatherUtil
 import com.buzin.onlyweather.weather.dialog.AddCityDialog
 import com.buzin.onlyweather.weather.ui.list_weather.ListWeatherFragment
 import dagger.android.support.DaggerAppCompatActivity
@@ -28,7 +27,6 @@ class MainActivity : DaggerAppCompatActivity(), AddCityDialog.AddCityDialogListe
     }
 
     override fun onDialogPositiveClick(dialog: DaggerDialogFragment?) {
-      //  WeatherUtil.showToast(this, getString(R.string.toast_add_new_city))
     }
 
     override fun onDialogNegativeClick(dialog: DaggerDialogFragment?) {
