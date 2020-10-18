@@ -4,7 +4,7 @@
     <string name="feature_weather">Feature weather</string>
     <string name="list">List</string>
     <string name="loading">Loading</string>
-    <string name="tempFormat">%1$s°C - %2$s°C</string>
+    <string name="tempFormat">%1$s - %2$s°C</string>
     <string name="celsiusSign">°C</string>
     <string name="minTemp">Min temp: </string>
     <string name="maxTemp">Max temp: </string>
